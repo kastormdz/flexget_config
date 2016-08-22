@@ -1,0 +1,190 @@
+
+templates:
+  tv:
+    make_rss:
+      file: /home/http/tools/flexget.xml
+      days: -1
+      items: 50
+      link:
+        - output 
+        - path
+        - subtitles
+
+    series:
+      settings:
+
+        1080p:
+          timeframe: 12 hours
+          quality: 1080p !webdl 
+          set:
+            movedone: "/home/samba/series/%(series_name)s/Season %(series_season)s/"
+
+        720p:
+          timeframe: 12 hours
+          quality: 720p 
+          set:
+            movedone: "/home/samba/series/%(series_name)s/Season %(series_season)s/"
+
+        HDTV:
+          quality: hdtv <720p
+          propers: 6 hours
+          set:
+            movedone: "/home/samba/series/{{series_name}}/Season {{series_season}}/"
+      
+
+      1080p:
+        - No hay nada para bajar
+
+      720p:
+        - The Big Bang Theory
+        - The Walking Dead
+        - Game of Thrones
+        - Arrow
+        - Marvel's Agents of S.H.I.E.L.D. 
+        - Gotham
+        - The Blacklist
+        - Hawaii Five-0 
+        - Z Nation
+        - Blue Bloods
+        - Grimm
+        - The 100
+        - The Flash
+        - Madam Secretary
+        - Elementary
+        - The Knick
+        - NCIS Los Angeles
+        - Chicago Fire
+        - Sherlock
+        - Scorpion
+        - Suits
+        - Ray Donovan
+        - Halt and Catch Fire
+        - Black Sails
+        - Chicago PD
+        - The Librarians
+        - The Fall
+        - Outlander
+        - Fargo
+        - Odyssey
+        - Emerald City
+        - True Detective
+        - Silicon Valley
+        - 12 Monkeys
+        - Broadchurch 
+        - Better Call Saul
+        - iZombie
+        - Into the Badlands
+        - Humans
+        - Fear The Walking Dead
+        - Aquarius
+        - The Casual Vacancy 
+        - The Catch
+        - Orange is the New Black
+        - Blindspot
+        - Chicago Med
+        - Heartbreaker
+        - Code Black
+        - Lucifer
+        - Marvel's Jessica Jones
+        - Supergirl
+        - Dark Matter
+        - Stitchers
+        - Killjoys
+        - Mr Robot
+        - Colony
+        - Zoo 
+        - The Man in the High Castle
+        - The Magicians
+        - The Expanse
+        - Ash vs Evil Dead
+        - Masters of Sex
+        - Quantico
+        - Bones
+        - Luther
+        - The X Files
+        - DC's Legends of Tomorrow
+        - House of Cards
+        - Marvel's Daredevil 
+        - Shadowhunters
+        - Preacher
+        - Berlin Station
+        - Marco Polo
+        - The Shannara Chronicles
+        - Marvel's Most Wanted
+        - Marvel's Luke Cage
+        - 11.22.63
+        - Incorporated 
+        - Conviction
+        - Chicago Justice
+        - Outcast
+        - Wynonna Earp
+        - "24: Legacy"
+        - Braindead
+        - Aftermath
+        - Timeless 
+        - Midnight Texas
+        - "The Blacklist: Redemption"
+        - Designated Survivor
+        - Notorious
+        - Time After Time
+        - Training Day
+        - MacGyver
+        - Lethal Weapon
+        - "A.P.B."
+        - Pure Genius
+        - Frequency
+        - Shooter 
+        - Legion
+        - Westworld 
+        - Powerless
+        - Van Helsing
+        - The Night Of
+        - Chance
+        - "Star Trek: Discovery"
+
+      HDTV:
+        - No series yet
+
+    deluge:
+      username: Deluge_User_NAME
+      password: XXXXxxxxxxXXXXXxxxxXX
+      label: tv
+      queuetotop: yes
+
+tasks:
+  EZTV:
+    rss: https://eztv.ag/ezrss.xml
+    template: tv
+  ARGENTEAM_HD:
+    rss: http://www.argenteam.net/rss/news/release/tv/hd
+    template: tv
+  PIRATEBAY:
+    rss: https://thepiratebay.org/rss/top100/205
+    template: tv
+  showRSS:
+    rss: http://showrss.info/feeds/all.rss
+    template: tv
+  EXTRATORRENT:
+    rss: http://extratorrent.com/rss.xml?cid=8&type=last
+    template: tv
+  TORRENTREACTOR:
+    rss: http://www.torrentreactor.net/rss/rss_8.xml
+    template: tv
+  RARBG:
+    rss: https://rarbg.com/rssdd.php?category=41
+    template: tv
+  
+  seed-series-db:
+    manual: yes
+    filesystem:
+      regexp: .*(avi|mkv|mp4)$
+      path: /home/samba/series/
+      recursive: yes
+    template: tv
+  #flexget execute --tasks seed-series-db --disable-advancement --learn
+
+web_server:
+  bind: 0.0.0.0
+  port: 3539
+api: yes
+webui: yes
